@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Lista de Jogos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-list>
+    <ion-item>
+      <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Lançamento" type="number" placeholder="Insira o ano de lançamento" [(ngModel)]="lancamento"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Distribuidora" type="text" placeholder="Insira a Distribuidora" [(ngModel)]="distribuidora"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Gênero" placeholder="Selecione" [(ngModel)]="genero">
+        <ion-select-option value="0">Ação</ion-select-option>
+        <ion-select-option value="1">Aventura</ion-select-option>
+        <ion-select-option value="2">RPG</ion-select-option>
+        <ion-select-option value="3">FPS</ion-select-option>
+        <ion-select-option value="4">SoulsLike</ion-select-option>
+        <ion-select-option value="5">Terror</ion-select-option>
+        <ion-select-option value="6">Sobrevivência</ion-select-option>
+        <ion-select-option value="7">Casual</ion-select-option>
+        <ion-select-option value="8">SandBox</ion-select-option>
+        <ion-select-option value="9">Plataforma</ion-select-option>
+        <ion-select-option value="10">RogueLike</ion-select-option>
+        <ion-select-option value="11">Corrida</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Tipo" placeholder="Selecione" [(ngModel)]="tipo">
+        <ion-select-option value="0">2D</ion-select-option>
+        <ion-select-option value="1">3D</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+  </ion-list>
+  
+  <ion-button expand="full" (click)="cadastro()">Cadastrar</ion-button>
+
+</ion-content>
+
+
+
