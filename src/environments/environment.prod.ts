@@ -7,6 +7,5 @@ export const environment = {
     storageBucket: "listajogos-ff782.appspot.com",
     messagingSenderId: "245816705832",
     appId: "1:245816705832:web:9714369254b6266564861d",
-    measurementId: "G-QC24DSDFXZ"
   }
 };

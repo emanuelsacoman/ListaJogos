@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Itens } from 'src/app/model/entities/itens/Itens';
-import { FirebaseService } from 'src/app/model/services/firebase-service.service';
+import { ItensService } from 'src/app/model/services/firebase-service.service';
 
 @Component({
   selector: 'app-editar',
@@ -15,21 +15,25 @@ export class EditarPage implements OnInit {
   lancamento! : number;
   distribuidora! : string;
   genero! : number;
+  imagem! : any;
   tipo! : number;
-  item! : Itens;
+  jogo! : Itens;
   edicao: boolean = true;
 
-  constructor(private actRoute: ActivatedRoute, private firebase: FirebaseService, private router : Router, private alertController: AlertController) {
+  constructor(private actRoute: ActivatedRoute, 
+    private firebase : ItensService, 
+    private router : Router, 
+    private alertController: AlertController) {
 
   }
 
   ngOnInit() {
-    this.item = history.state.item;
-    this.nome = this.item.nome;
-    this.lancamento = this.item.lancamento;
-    this.distribuidora = this.item.distribuidora;
-    this.genero = this.item.genero;
-    this.tipo = this.item.tipo;
+    this.jogo = history.state.jogo;
+    this.nome = this.jogo?.nome;
+    this.lancamento = this.jogo?.lancamento;
+    this.distribuidora = this.jogo?.distribuidora;
+    this.genero = this.jogo?.genero;
+    this.tipo = this.jogo?.tipo;
   }
 
   habilitar(){
@@ -40,35 +44,52 @@ export class EditarPage implements OnInit {
     }
   }
 
+  uploadFile(imagem: any){
+    this.imagem = imagem.files;
+  }
+
   editar(){
-    if (this.nome){
-      let novo: Itens = new Itens(this.nome);
-      novo.lancamento = this.lancamento;
-      novo.distribuidora = this.distribuidora;
-      novo.genero = this.genero;
-      novo.tipo = this.tipo;
-      this.firebase.editar(novo, this.item.id)
-      .then(()=>{this.router.navigate(["/home"]);})
-      .catch((error)=>{
-        console.log(error);
-        this.presentAlert("Erro", "Erro ao Atualizar Item");
-      })
-    }else {
-      this.presentAlert("Erro", "Nome é um campo obrigatório!");
+    if (this.nome && this.lancamento) {
+      let create: Itens = new Itens(this.nome, this.lancamento);
+      create.distribuidora = this.distribuidora;
+      create.genero = this.genero;
+      create.tipo = this.tipo;
+      create.id = this.jogo.id;
+
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, create)
+        ?.then(()=>{this.router.navigate(["/home"]);})
+      }else{
+        create.downloadURL = this.jogo.downloadURL;
+        this.firebase
+          .editar(create, this.jogo.id)
+          .then(() => {
+            this.router.navigate(['/home']);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.presentAlert('ERRO', 'Erro ao editar jogo!');
+          })
+      }
+    } else {
+      this.presentAlert('ERRO', 'Nome e lançamento são campos obrigatórios!');
     }
   }
 
   excluir(){
-    this.presentConfirmAlert("ATENÇÃO", "Deseja realmente excluir o jogo?")
+    this.presentConfirmAlert("ATENÇÃO", "Deseja realmente excluir o jogo?");
   }
 
-  excluirItem(){
-    this.firebase.excluir(this.item.id)
-    .then(() => {this.router.navigate(["/home"]);})
-    .catch((error)=>{
-      console.log(error);
-      this.presentAlert("Erro", "Erro ao Excluir Contato!");
-    })
+  excluirJogo(){
+    this.firebase
+      .excluir(this.jogo.id)
+      .then(() => {
+        this.router.navigate(['/home']);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.presentAlert('ERRO', 'Erro ao excluir jogo!');
+      });
   }
 
   async presentAlert(subHeader: string, message: string) {
@@ -88,7 +109,7 @@ export class EditarPage implements OnInit {
       message: message,
       buttons: [
         {text: 'Cancelar', role: 'cancelar', handler: ()=>{console.log("cancelou")}},
-        {text: 'Confirmar', role: 'confirmar', handler: (acao)=>{this.excluirItem()}},
+        {text: 'Confirmar', role: 'confirmar', handler: (acao)=>{this.excluirJogo()}},
       ],
     });
     await alert.present();

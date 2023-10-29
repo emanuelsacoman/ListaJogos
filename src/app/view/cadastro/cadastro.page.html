@@ -1,6 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Lista de Jogos</ion-title>
+    <ion-title><ion-icon name="game-controller-outline"></ion-icon>
+      LISTA DE JOGOS
+      <ion-icon name="game-controller-outline"></ion-icon></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -42,10 +44,16 @@
         <ion-select-option value="1">3D</ion-select-option>
       </ion-select>
     </ion-item>
+
+    <ion-item>
+      <ion-button size="default" color="success" shape="round">
+        <input type="file" (change)="uploadFile($event.target)" />
+      </ion-button>
+    </ion-item>
     
   </ion-list>
   
-  <ion-button expand="full" (click)="cadastro()">Cadastrar</ion-button>
+  <ion-button expand="full" color="success" (click)="cadastro()">Cadastrar</ion-button>
 
 </ion-content>
 

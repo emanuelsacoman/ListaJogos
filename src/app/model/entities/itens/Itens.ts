@@ -1,13 +1,15 @@
 export class Itens {
+    private _id!: string;
     private _nome : string;
     private _lancamento! : number;
     private _distribuidora! : string;
     private _genero! : number;
     private _tipo! : number;
-    private _id!: string;
+    private _downloadURL : any;
 
-    constructor(nome : string){
+    constructor(nome : string, lancamento : number){
         this._nome = nome;
+        this._lancamento = lancamento;
     }
 
     //get set nome
@@ -60,13 +62,19 @@ export class Itens {
         this._tipo = tipo;
     }
 
-    //get set id
-
     public get id(): string {
         return this._id;
       }
+      public set id(value: string) {
+        this._id = value;
+      }
+
+      public get downloadURL() : any {
+        return this._downloadURL;
+      }
       
-    public set id(id: string){
-    this._id = id;
-    }
+      public set downloadURL(value : any){
+        this._downloadURL = value;
+      }
+    
 }

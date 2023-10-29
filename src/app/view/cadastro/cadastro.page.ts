@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Itens } from 'src/app/model/entities/itens/Itens';
-import { FirebaseService } from 'src/app/model/services/firebase-service.service';
-import { ItensService } from 'src/app/model/services/itens.service';
+import { ItensService } from 'src/app/model/services/firebase-service.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,44 +11,52 @@ import { ItensService } from 'src/app/model/services/itens.service';
 })
 export class CadastroPage implements OnInit {
 
-  nome! : string;
-  lancamento! : number;
-  distribuidora! : string;
-  genero! : number;
-  tipo! : number;
+  public nome! : string;
+  public lancamento! : number;
+  public distribuidora! : string;
+  public genero! : number;
+  public tipo! : number;
+  public imagem : any;
 
   constructor(private alertController: AlertController,
-    private router : Router, private firebase : FirebaseService){
+    private router : Router, private firebase : ItensService){
       
     }
   
   ngOnInit() {
+  }
 
+  uploadFile(imagem: any){
+    this.imagem = imagem.files;
   }
 
   cadastro(){
-    if(this.nome){
-      if(this.nome.length >= 3){
-        let novo : Itens = new Itens(this.nome);
-        novo.lancamento = this.lancamento;
-        novo.distribuidora = this.distribuidora;
-        novo.genero = this.genero;
-        novo.tipo = this.tipo;
-        this.firebase.cadastrar(novo).then(() => this.router.navigate(["/home"])).catch((error) =>{
+    if (this.nome && this.lancamento) {
+      let create: Itens = new Itens(this.nome, this.lancamento);
+      create.distribuidora = this.distribuidora;
+      create.genero = this.genero;
+      create.tipo = this.tipo;
+      if(this.imagem){
+        this.firebase.uploadImage(this.imagem, create)
+        ?.then(()=>{
+          this.router.navigate(["/home"]);
+        })
+      }else {
+        this.firebase.cadastrar(create).then(() => this.router.navigate(["/home"])).catch((error) =>{
         console.log(error);
         this.presentAlert("Erro", "Erro ao salvar contato!");
         })
-      }else {
-        this.presentAlert("Erro", "Nome precisa de no mínimo 3 caracteres!");
-      }
-    }else {
-      this.presentAlert("Erro", "Nome é um campo obrigatório!");
+      }   
+      this.firebase.cadastrar(create);
+      this.router.navigate(['/home']);
+    } else {
+      this.presentAlert('ERRO!', 'Nome e lançamento são campos obrigatórios!');
     }
   }
 
   async presentAlert(subHeader: string, message: string) {
     const alert = await this.alertController.create({
-      header: 'Agenda de Contatos',
+      header: 'Lista de Jogos',
       subHeader: subHeader,
       message: message,
       buttons: ['OK'],
