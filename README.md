@@ -1,4 +1,9 @@
 <div align="center">
-  <img src="home.png">
-  <img src="cadastrar.png">
+</div>
+
+<div style="display: flex; flex-direction: row;">
+     
+  <img src="home.png" style="width: 50%; height: auto;">
+  <img src="cadastrar.png" style="width: 50%; height: auto;">
+     
 </div>
