@@ -1,11 +1,11 @@
 export class Itens {
     private _id!: string;
-    private _nome : string;
+    private _nome! : string;
     private _lancamento! : number;
     private _distribuidora! : string;
     private _genero! : number;
     private _tipo! : number;
-    private _downloadURL : any;
+    private _downloadURL! : any;
 
     constructor(nome : string, lancamento : number){
         this._nome = nome;
@@ -62,12 +62,16 @@ export class Itens {
         this._tipo = tipo;
     }
 
+    //get set id
+
     public get id(): string {
         return this._id;
       }
       public set id(value: string) {
         this._id = value;
       }
+
+      //get set downloadURL
 
       public get downloadURL() : any {
         return this._downloadURL;

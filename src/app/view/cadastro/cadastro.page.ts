@@ -16,7 +16,7 @@ export class CadastroPage implements OnInit {
   public distribuidora! : string;
   public genero! : number;
   public tipo! : number;
-  public imagem : any;
+  public imagem! : any;
 
   constructor(private alertController: AlertController,
     private router : Router, private firebase : ItensService){
