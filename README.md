@@ -1,2 +1,4 @@
-<img src="home.png">
-<img src="cadastra.png">
+<div align: center>
+  <img src="home.png">
+  <img src="cadastrar.png">
+</div>
