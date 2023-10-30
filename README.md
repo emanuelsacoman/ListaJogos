@@ -1,4 +1,4 @@
-<div style="text-align: center;>
+<div align-itens: center>
   <img src="home.png">
   <img src="cadastrar.png">
 </div>
