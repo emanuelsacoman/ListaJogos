@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Itens } from 'src/app/model/entities/itens/Itens';
@@ -10,6 +11,7 @@ import { ItensService } from 'src/app/model/services/firebase-service.service';
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
+  registerForm!: FormGroup;
 
   public nome! : string;
   public lancamento! : number;
@@ -19,11 +21,12 @@ export class CadastroPage implements OnInit {
   public imagem! : any;
 
   constructor(private alertController: AlertController,
-    private router : Router, private firebase : ItensService){
-      
+    private router : Router, private firebase : ItensService, private builder: FormBuilder){
+
     }
   
   ngOnInit() {
+    
   }
 
   uploadFile(imagem: any){
