@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form [formGroup]="cadastro" (ngSubmit)="submitForm()" novalidate>
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="cadastro.get('email')?.touched &&
+      cadastro.get('email')?.errors?.['required']">Email é obrigatório</span>
+      <span  *ngIf="cadastro.get('email')?.dirty &&
+      cadastro.get('email')?.errors?.['email']">Formato de Email Inválido</span>
+      <!--Mensagens de Erro-->
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" formControlName="senha"></ion-input>
+      </ion-item>
+            <!--Mensagens de Erro-->
+            <span *ngIf="cadastro.get('senha')?.touched &&
+            cadastro.get('senha')?.errors?.['required']">Senha é obrigatória</span>
+            <span  *ngIf="cadastro.get('senha')?.dirty &&
+            cadastro.get('senha')?.errors?.['minlength']">A senha é de no mínimo 6 caracteres</span>
+            <!--Mensagens de Erro-->
+            <ion-item>
+      <ion-label position="floating">Confirmação de Senha</ion-label>
+         <ion-input type="password" formControlName="confSenha"></ion-input>
+      </ion-item>
+        <!--Mensagens de Erro-->
+        <span *ngIf="cadastro.get('confSenha')?.touched &&
+        cadastro.get('confSenha')?.errors?.['required']">A comfirmação de Senha é obrigatória</span>
+        <span  *ngIf="cadastro.get('confSenha')?.dirty &&
+        cadastro.get('confSenha')?.errors?.['minlength']">A confirmação de senha é de no mínimo 6 caracteres</span>
+        <span *ngIf="cadastro.get('confSenha')?.dirty &&
+        (cadastro.get('senha')?.value != cadastro.get('confSenha')?.value)">
+      As senhas não conferem.</span>
+        <!--Mensagens de Erro-->
+      <ion-button expand="full" color="success" type="submit">Cadastrar</ion-button>
+    </form>
+  </ion-list>
+</ion-content>

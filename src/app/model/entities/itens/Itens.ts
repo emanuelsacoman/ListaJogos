@@ -6,6 +6,7 @@ export class Itens {
     private _genero! : number;
     private _tipo! : number;
     private _downloadURL! : any;
+    private _uid! : string;
 
     constructor(nome : string, lancamento : number){
         this._nome = nome;
@@ -66,19 +67,30 @@ export class Itens {
 
     public get id(): string {
         return this._id;
-      }
-      public set id(value: string) {
+    }
+
+    public set id(value: string) {
         this._id = value;
-      }
+    }
 
-      //get set downloadURL
+    //get set downloadURL
 
-      public get downloadURL() : any {
+    public get downloadURL() : any {
         return this._downloadURL;
-      }
-      
-      public set downloadURL(value : any){
-        this._downloadURL = value;
-      }
+    }
     
-}
+    public set downloadURL(value : any){
+        this._downloadURL = value;
+    }
+
+    //get set downloadURL
+    
+    public get uid(): string {
+        return this._uid;
+    }
+    
+    public set uid(value: string) {
+        this._uid = value;
+    }
+        
+    }

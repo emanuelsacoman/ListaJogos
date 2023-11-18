@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./view/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./view/Lista/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,11 +13,19 @@ const routes: Routes = [
   },
   {
     path: 'cadastro',
-    loadChildren: () => import('./view/cadastro/cadastro.module').then( m => m.CadastroPageModule)
+    loadChildren: () => import('./view/Lista/cadastro/cadastro.module').then( m => m.CadastroPageModule)
   },
   {
     path: 'editar',
-    loadChildren: () => import('./view/editar/editar.module').then( m => m.EditarPageModule)
+    loadChildren: () => import('./view/Lista/editar/editar.module').then( m => m.EditarPageModule)
+  },
+  {
+    path: 'registrar',
+    loadChildren: () => import('./view/usuario/registrar/registrar.module').then( m => m.RegistrarPageModule)
+  },
+  {
+    path: 'logar',
+    loadChildren: () => import('./view/usuario/logar/logar.module').then( m => m.LogarPageModule)
   },
 ];
 
