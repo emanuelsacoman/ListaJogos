@@ -2,8 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { getAuth, signInWithPopup, browserPopupRedirectResolver,
-GoogleAuthProvider} from 'firebase/auth'; // npm i -g firebase --save
+import { getAuth, signInWithPopup, GoogleAuthProvider, browserPopupRedirectResolver } from 'firebase/auth';
 import { FirebaseService } from './firebase-service.service.spec';
 //import { Usuario } from '../entities/Usuario';
 
