@@ -64,6 +64,19 @@ export class LogarPage implements OnInit {
       });
   }
 
+  logarComGithub(){
+    this.auth
+      .logarComGithub()
+      .then((res) => {
+        this.alert.presentAlert('OK', 'Seja bem Vindo!');
+        this.router.navigate(['home']);
+      })
+      .catch((error) => {
+        this.alert.presentAlert('Erro', 'Erro ao Logar com o Github! Tente Novamente');
+        console.log(error);
+      });
+  }
+
   irParaRegistrar() {
     this.router.navigate(['/registrar']);
   }

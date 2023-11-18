@@ -1,5 +1,7 @@
 {
   "name": "ListaJogos",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
