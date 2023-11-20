@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-list *ngFor="let jogo of this.listaJogos; let i = index">
+    <ion-list *ngFor="let jogo of this.listaJogos">
       <ion-item (click)="editar(jogo)">
         <ion-avatar id="itensMenu"><img src="{{jogo.downloadURL}}"></ion-avatar>
         <ion-label>{{ jogo.nome }}</ion-label><ion-icon name="game-controller-outline"></ion-icon>
