@@ -5,19 +5,21 @@ import { Itens } from 'src/app/model/entities/itens/Itens';
 import { AuthService } from 'src/app/model/services/auth.service';
 import { FirebaseService } from 'src/app/model/services/firebase-service.service.spec';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  public listaJogos : Itens[] = [];
+  public listaJogos: Itens[] = [];
   
-  constructor(private router : Router,
-    private alertController : AlertController, 
-    private firebase : FirebaseService,
-    private auth: AuthService) {
-      console.log(this.auth.getUsuarioLogado())
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private firebase: FirebaseService,
+    private auth: AuthService
+  ) {
     this.firebase.obterTodos().subscribe((res) => {
       this.listaJogos = res.map((jogo) => {
         return {
