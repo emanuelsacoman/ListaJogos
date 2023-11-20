@@ -1,6 +1,20 @@
-ion-title {
-    background-color: rgb(177, 17, 17);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+#title {
+    background-color:rgb(177, 17, 17);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     letter-spacing: 1px;
-    color: black;
-}
+    color:black;
+    text-align: center;
+  }
+  
+  #icon {
+    color:black;
+  }
+  
+  #itens {
+    font-weight: bold;
+  }
+  
+  #itensMenu {
+    margin-right: 10px;
+  }

@@ -1,62 +1,65 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Lista de Jogos</ion-title>
+    <ion-title id="title"><ion-icon name="game-controller-outline"></ion-icon>
+      LISTA DE JOGOS
+      <ion-icon name="game-controller-outline"></ion-icon></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   
-  <ion-list>
+  <form [formGroup]="editar" (ngSubmit)="editItem()" novalidate>
     <ion-item>
       <ion-toggle color="success" (ionChange)="habilitar()">Habilitar Edição</ion-toggle>
     </ion-item>
 
-    <ion-item>
-      <ion-input label="Nome" placeholder="Insira o nome" [(ngModel)]="nome" disabled={{edicao}}></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Lançamento" type="number" placeholder="Insira o ano de lançamento" [(ngModel)]="lancamento" disabled={{edicao}}></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Distribuidora" type="text" placeholder="Insira a Distribuidora" [(ngModel)]="distribuidora" disabled={{edicao}}></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-select label="Gênero" placeholder="Selecione" [(ngModel)]="genero">
-        <ion-select-option value="0">Ação</ion-select-option>
-        <ion-select-option value="1">Aventura</ion-select-option>
-        <ion-select-option value="2">RPG</ion-select-option>
-        <ion-select-option value="3">FPS</ion-select-option>
-        <ion-select-option value="4">SoulsLike</ion-select-option>
-        <ion-select-option value="5">Terror</ion-select-option>
-        <ion-select-option value="6">Sobrevivência</ion-select-option>
-        <ion-select-option value="7">Casual</ion-select-option>
-        <ion-select-option value="8">SandBox</ion-select-option>
-        <ion-select-option value="9">Plataforma</ion-select-option>
-        <ion-select-option value="10">RogueLike</ion-select-option>
-        <ion-select-option value="11">Corrida</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-select label="Tipo" placeholder="Selecione" [(ngModel)]="tipo">
-        <ion-select-option value="0">2D</ion-select-option>
-        <ion-select-option value="1">3D</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <img src="{{this.jogo.downloadURL}}" />
-    <ion-item>
-      <ion-button size="default" color="success" shape="round" disabled="{{edicao}}">
-        <input type="file" (change)="uploadFile($event.target)" />
-      </ion-button>
-    </ion-item>
-    
-  </ion-list>
+    <ion-list>
+      <ion-item disabled={{edicao}}>
+        <ion-input label="Nome" placeholder="Insira o nome" formControlName="nome"></ion-input>
+      </ion-item>
   
-  <ion-button expand="full" color="success" (click)="editar()" disabled={{edicao}}>Salvar</ion-button>
-  <ion-button expand="full" (click)="excluir()" color="danger" disabled={{edicao}}>Excluir</ion-button>
+      <ion-item disabled={{edicao}}>
+        <ion-input label="Lançamento" type="number" placeholder="Insira o ano de lançamento" formControlName="lancamento"></ion-input>
+      </ion-item>
+  
+      <ion-item disabled={{edicao}}>
+        <ion-input label="Distribuidora" type="text" placeholder="Insira a Distribuidora" formControlName="distribuidora"></ion-input>
+      </ion-item>
+  
+      <ion-item disabled={{edicao}}>
+        <ion-select label="Gênero" placeholder="Selecione" formControlName="genero">
+          <ion-select-option value="0">Ação</ion-select-option>
+          <ion-select-option value="1">Aventura</ion-select-option>
+          <ion-select-option value="2">RPG</ion-select-option>
+          <ion-select-option value="3">FPS</ion-select-option>
+          <ion-select-option value="4">SoulsLike</ion-select-option>
+          <ion-select-option value="5">Terror</ion-select-option>
+          <ion-select-option value="6">Sobrevivência</ion-select-option>
+          <ion-select-option value="7">Casual</ion-select-option>
+          <ion-select-option value="8">SandBox</ion-select-option>
+          <ion-select-option value="9">Plataforma</ion-select-option>
+          <ion-select-option value="10">RogueLike</ion-select-option>
+          <ion-select-option value="11">Corrida</ion-select-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item disabled={{edicao}}>
+        <ion-select label="Tipo" placeholder="Selecione" formControlName="tipo">
+          <ion-select-option value="0">2D</ion-select-option>
+          <ion-select-option value="1">3D</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <img [src]="this.jogo.downloadURL" />
+      <ion-item>
+        <ion-button size="default" color="success" shape="round">
+          <input type="file" (change)="uploadFile($event)" />
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" color="success" type="submit" disabled={{edicao}}>Salvar</ion-button>
+    <ion-button expand="full" (click)="confirmDelete()" color="danger" disabled={{edicao}}>Excluir</ion-button>
+    
+  </form>
+  
 
 </ion-content>
