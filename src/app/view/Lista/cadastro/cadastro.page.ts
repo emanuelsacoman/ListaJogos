@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Itens } from 'src/app/model/entities/itens/Itens';
+import { AuthService } from 'src/app/model/services/auth.service';
 import { ItensService } from 'src/app/model/services/firebase-service.service';
 
 @Component({
@@ -13,12 +14,14 @@ import { ItensService } from 'src/app/model/services/firebase-service.service';
 export class CadastroPage implements OnInit {
   cadastrar: FormGroup;
   imagem: FileList | null;
+  user : any;
 
   constructor(
     private formBuilder: FormBuilder,
     private firebase: ItensService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService : AuthService
   ) {
     this.cadastrar = this.formBuilder.group({
       nome: new FormControl(''),
@@ -28,6 +31,7 @@ export class CadastroPage implements OnInit {
       tipo: new FormControl(''),
       imagem: new FormControl('')
     });
+    this.user = this.authService.getUsuarioLogado();
 
     this.imagem = null;
   }
@@ -58,6 +62,7 @@ export class CadastroPage implements OnInit {
       create.distribuidora = distribuidora;
       create.genero = genero;
       create.tipo = tipo;
+      create.uid = this.user.uid;
 
       if (this.imagem) {
         this.firebase.uploadImage(this.imagem, create)
