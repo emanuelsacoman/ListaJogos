@@ -11,6 +11,9 @@ import { Usuario } from '../entities/itens/Usuario';
   providedIn: 'root'
 })
 export class AuthService {
+  signOut() {
+    throw new Error('Method not implemented.');
+  }
   usuarioDados: any;
 
   constructor(private firebase : FirebaseService,

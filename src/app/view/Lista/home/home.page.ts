@@ -41,4 +41,14 @@ export class HomePage {
   irParaGithub(){ 
     window.open('https://github.com/EvS444', '_blank');
   }
+
+  deslogar() {
+    this.auth.deslogar()
+      .then(() => {
+        this.router.navigate(['/login']); 
+      })
+      .catch(error => {
+        console.log('Erro ao fazer logout:', error);
+      });
+  }
 }
