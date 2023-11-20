@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { getAuth, signInWithPopup, GoogleAuthProvider, browserPopupRedirectResolver, GithubAuthProvider } from 'firebase/auth';
 import { FirebaseService } from './firebase-service.service.spec';
-//import { Usuario } from '../entities/Usuario';
+import { Usuario } from '../entities/itens/Usuario';
 
 
 @Injectable({
