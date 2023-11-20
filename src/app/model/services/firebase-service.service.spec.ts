@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class FirebaseService {
   private PATH: string = "jogos";
   user: any;
-  
+
   constructor(private firestore : AngularFirestore,
     @Inject(Injector) private readonly injector: Injector,
     private angularFireStorage : AngularFireStorage) {
@@ -29,7 +29,8 @@ export class FirebaseService {
 
 
   obterTodos() {
-    return this.firestore.collection(this.PATH).snapshotChanges();
+    this.user = this.injectAuthService().getUsuarioLogado();
+    return this.firestore.collection(this.PATH, ref => ref.where('uid', '==', this.user.uid)).snapshotChanges();
   }
 
   register(itens : Itens) {
