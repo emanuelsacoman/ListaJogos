@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Itens } from 'src/app/model/entities/itens/Itens';
@@ -11,49 +11,75 @@ import { ItensService } from 'src/app/model/services/firebase-service.service';
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
-  registerForm!: FormGroup;
+  cadastrar: FormGroup;
+  imagem: FileList | null;
 
-  public nome! : string;
-  public lancamento! : number;
-  public distribuidora! : string;
-  public genero! : number;
-  public tipo! : number;
-  public imagem! : any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private firebase: ItensService,
+    private router: Router,
+    private alertController: AlertController
+  ) {
+    this.cadastrar = this.formBuilder.group({
+      nome: new FormControl(''),
+      lancamento: new FormControl(''),
+      distribuidora: new FormControl(''),
+      genero: new FormControl(''),
+      tipo: new FormControl(''),
+      imagem: new FormControl('')
+    });
 
-  constructor(private alertController: AlertController,
-    private router : Router, private firebase : ItensService, private builder: FormBuilder){
+    this.imagem = null;
+  }
 
-    }
-  
   ngOnInit() {
-    
+    this.cadastrar = this.formBuilder.group({
+      nome: ['', [Validators.required]],
+      lancamento: ['', Validators.required],
+      distribuidora: ['', Validators.required],
+      genero: ['', [Validators.required]],
+      tipo: ['', [Validators.required]],
+      imagem: ['', [Validators.required]]
+    })
   }
+  uploadFile(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target?.files && target?.files.length > 0) {
+      const imagem = target.files;
+      this.cadastrar.patchValue({ imagem: imagem });
+      this.imagem = imagem;
+    }
+  }  
 
-  uploadFile(imagem: any){
-    this.imagem = imagem.files;
-  }
+  cadastro() {
+    if (this.cadastrar.valid) {
+      const { nome, lancamento, distribuidora, genero, tipo } = this.cadastrar.value;
+      const create: Itens = new Itens(nome, lancamento);
+      create.distribuidora = distribuidora;
+      create.genero = genero;
+      create.tipo = tipo;
 
-  cadastro(){
-    if (this.nome && this.lancamento) {
-      let create: Itens = new Itens(this.nome, this.lancamento);
-      create.distribuidora = this.distribuidora;
-      create.genero = this.genero;
-      create.tipo = this.tipo;
-      if(this.imagem){
+      if (this.imagem) {
         this.firebase.uploadImage(this.imagem, create)
-        ?.then(()=>{
-          this.router.navigate(["/home"]);
-        })
-      }else {
-        this.firebase.cadastrar(create).then(() => this.router.navigate(["/home"])).catch((error) =>{
-        console.log(error);
-        this.presentAlert("Erro", "Erro ao salvar contato!");
-        })
-      }   
-      this.firebase.cadastrar(create);
-      this.router.navigate(['/home']);
+          ?.then(() => {
+            this.router.navigate(['/home']);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.presentAlert('Erro', 'Erro ao salvar imagem!');
+          });
+      } else {
+        this.firebase.cadastrar(create)
+          .then(() => {
+            this.router.navigate(['/home']);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.presentAlert('Erro', 'Erro ao salvar contato!');
+          });
+      }
     } else {
-      this.presentAlert('ERRO!', 'Nome e lançamento são campos obrigatórios!');
+      this.presentAlert('ERRO!', 'Preencha todos os campos obrigatórios!');
     }
   }
 
@@ -66,5 +92,4 @@ export class CadastroPage implements OnInit {
     });
     await alert.present();
   }
-
 }
