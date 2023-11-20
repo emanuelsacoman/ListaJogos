@@ -32,4 +32,8 @@ export class HomePage {
   editar(jogo : Itens){
     this.router.navigateByUrl("/editar", {state: { jogo: jogo } });
   }
+
+  irParaGithub(){ 
+    window.open('https://github.com/EvS444', '_blank');
+  }
 }

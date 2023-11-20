@@ -13,14 +13,25 @@
     <ion-item>
       <ion-input label="Nome" placeholder="Insira o nome" formControlName="nome"></ion-input>
     </ion-item>
-
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('nome')?.touched &&
+    cadastrar.get('nome')?.errors?.['required']">Nome é obrigatório</span>
+    <!--Mensagens de Erro-->
     <ion-item>
       <ion-input label="Lançamento" type="number" placeholder="Insira o ano de lançamento" formControlName="lancamento"></ion-input>
     </ion-item>
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('lancamento')?.touched &&
+    cadastrar.get('lancamento')?.errors?.['required']">Lançamento é obrigatório</span>
+    <!--Mensagens de Erro-->
 
     <ion-item>
       <ion-input label="Distribuidora" type="text" placeholder="Insira a Distribuidora" formControlName="distribuidora"></ion-input>
     </ion-item>
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('distribuidora')?.touched &&
+    cadastrar.get('distribuidora')?.errors?.['required']">Distribuidora é obrigatório</span>
+    <!--Mensagens de Erro-->
 
     <ion-item>
       <ion-select label="Gênero" placeholder="Selecione" formControlName="genero">
@@ -38,6 +49,10 @@
         <ion-select-option value="11">Corrida</ion-select-option>
       </ion-select>
     </ion-item>
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('genero')?.touched &&
+    cadastrar.get('genero')?.errors?.['required']">Genero é obrigatório</span>
+    <!--Mensagens de Erro-->
 
     <ion-item>
       <ion-select label="Tipo" placeholder="Selecione" formControlName="tipo">
@@ -45,18 +60,23 @@
         <ion-select-option value="1">3D</ion-select-option>
       </ion-select>
     </ion-item>
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('tipo')?.touched &&
+    cadastrar.get('tipo')?.errors?.['required']">Tipo é obrigatório</span>
+    <!--Mensagens de Erro-->
 
     <ion-item>
       <ion-button size="default" color="success" shape="round">
         <input type="file" (change)="uploadFile($event)" />
       </ion-button>
     </ion-item>
+    <!--Mensagens de Erro-->
+    <span *ngIf="cadastrar.get('imagem')?.touched &&
+    cadastrar.get('imagem')?.errors?.['required']">Imagem é obrigatório</span>
+    <!--Mensagens de Erro-->
   </ion-list>
   
   <ion-button expand="full" color="success" type="submit">Cadastrar</ion-button>
 </form>
 
 </ion-content>
-
-
-

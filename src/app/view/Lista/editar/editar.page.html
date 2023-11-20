@@ -17,14 +17,26 @@
       <ion-item disabled={{edicao}}>
         <ion-input label="Nome" placeholder="Insira o nome" formControlName="nome"></ion-input>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('nome')?.touched &&
+      editar.get('nome')?.errors?.['required']">Nome é obrigatório</span>
+      <!--Mensagens de Erro-->
   
       <ion-item disabled={{edicao}}>
         <ion-input label="Lançamento" type="number" placeholder="Insira o ano de lançamento" formControlName="lancamento"></ion-input>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('lancamento')?.touched &&
+      editar.get('lancamento')?.errors?.['required']">Lancamento é obrigatório</span>
+      <!--Mensagens de Erro-->
   
       <ion-item disabled={{edicao}}>
         <ion-input label="Distribuidora" type="text" placeholder="Insira a Distribuidora" formControlName="distribuidora"></ion-input>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('distribuidora')?.touched &&
+      editar.get('distribuidora')?.errors?.['required']">Distribuidora é obrigatório</span>
+      <!--Mensagens de Erro-->
   
       <ion-item disabled={{edicao}}>
         <ion-select label="Gênero" placeholder="Selecione" formControlName="genero">
@@ -42,6 +54,10 @@
           <ion-select-option value="11">Corrida</ion-select-option>
         </ion-select>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('genero')?.touched &&
+      editar.get('genero')?.errors?.['required']">Genero é obrigatório</span>
+      <!--Mensagens de Erro-->
   
       <ion-item disabled={{edicao}}>
         <ion-select label="Tipo" placeholder="Selecione" formControlName="tipo">
@@ -49,12 +65,21 @@
           <ion-select-option value="1">3D</ion-select-option>
         </ion-select>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('tipo')?.touched &&
+      editar.get('tipo')?.errors?.['required']">Tipo é obrigatório</span>
+      <!--Mensagens de Erro-->
+
       <img [src]="this.jogo.downloadURL" />
       <ion-item>
         <ion-button size="default" color="success" shape="round">
           <input type="file" (change)="uploadFile($event)" />
         </ion-button>
       </ion-item>
+      <!--Mensagens de Erro-->
+      <span *ngIf="editar.get('imagem')?.touched &&
+      editar.get('imagem')?.errors?.['required']">Imagem é obrigatório</span>
+      <!--Mensagens de Erro-->
     </ion-list>
     <ion-button expand="full" color="success" type="submit" disabled={{edicao}}>Salvar</ion-button>
     <ion-button expand="full" (click)="confirmDelete()" color="danger" disabled={{edicao}}>Excluir</ion-button>
