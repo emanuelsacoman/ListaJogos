@@ -39,7 +39,7 @@ export class HomePage {
   }
 
   irParaGithub(){ 
-    window.open('https://github.com/EvS444', '_blank');
+    window.open('https://github.com/emanuelsacoman', '_blank');
   }
 
   deslogar() {
